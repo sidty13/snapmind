@@ -15,6 +15,6 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "runboth" : "concurrently \"cd frontend && npm run dev\" \"cd backend && uv run main.py\" "
+    "vercel-build": "concurrently \"cd frontend && npm run dev\" \"cd backend && uv run main.py\" "
   }
 }
