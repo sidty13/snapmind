@@ -1,0 +1,20 @@
+{
+  "name": "snapmind",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/sidty13/snapmind#readme",
+  "bugs": {
+    "url": "https://github.com/sidty13/snapmind/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidty13/snapmind.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "runboth" : "concurrently \"cd frontend && npm run dev\" \"cd backend && uv run main.py\" "
+  }
+}

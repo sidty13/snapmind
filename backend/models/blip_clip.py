@@ -20,9 +20,19 @@ def generate_caption(image_path: str) -> str:
     out = blip_model.generate(**inputs)
     return blip_processor.decode(out[0], skip_special_tokens=True)
 
-def classify_image(image_path: str) -> str:
+def classify_image(image_path: str, threshold: float = 0.35) -> str:
+    """
+    Classify an image into one of the predefined categories.
+    If the best confidence is below the threshold, return "other".
+    """
     image = Image.open(image_path).convert("RGB")
     inputs = clip_processor(text=CATEGORIES, images=image, return_tensors="pt", padding=True)
     outputs = clip_model(**inputs)
-    probs = outputs.logits_per_image.softmax(dim=1)
-    return CATEGORIES[probs.argmax()]
+    probs = outputs.logits_per_image.softmax(dim=1).cpu().detach().numpy()[0]
+
+    best_idx = probs.argmax()
+    best_prob = probs[best_idx]
+
+    if best_prob < threshold:
+        return "other"
+    return CATEGORIES[best_idx]
